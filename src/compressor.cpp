@@ -22,17 +22,17 @@ namespace smal{
 
         char c;
         tree::Node* prefix_node = prefix_tree->get_root();
+
+        input_file.unsetf(std::ios_base::skipws);
         while(input_file >> c){
             tree::Node* prefix_child = prefix_node->get_child(std::string(1, c));
             if(prefix_child == nullptr){
-                std::cout << "cant find " << c << "\t creating new entry with code " << prefix_tree->get_size() << ", inserting pair (" << prefix_node->get_code() << ';' << c << ")\n";
                 output_file << '(' << prefix_node->get_code() << ';' << c << ')';
                 prefix_tree->add(prefix_node, std::string(1, c));
                 prefix_node = prefix_tree->get_root();
             }
             else{
                 prefix_node = prefix_child;
-                std::cout << "found " << c << '\n';
             }
         }
         if(prefix_node != prefix_tree->get_root()){
