@@ -14,7 +14,7 @@ OBJECTS := $(patsubst $(SOURCE_PATH)/%,$(BUILD_PATH)/%,$(SOURCES:.$(SOURCE_EXT)=
 all: $(TARGET_NAME)
 
 $(BUILD_PATH)/%.o: $(SOURCE_PATH)/%.cpp $(LIB_PATH)/%.hpp
-	mkdir -p $(BUILD_PATH)
+	mkdir -p $(@D)
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 $(TARGET_NAME): $(OBJECTS) ./main.cpp
