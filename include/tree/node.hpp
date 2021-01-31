@@ -10,26 +10,22 @@ namespace tree {
 
     class Node{
         private:
+            int code;
             std::string prefix;
-            Node* parent;
             std::vector<Node*> children;
+            Node* parent;
             void clear();
 
             friend class PrefixTree;
         public:
-            Node(std::string prefix);
+            Node(std::string prefix, int code);
             ~Node();
+            int get_code();
             std::string get_prefix();
             std::string get_full_prefix();
-            Node* get_parent();
-            void set_parent(Node* parent);
             std::vector<Node*> get_children();
             Node* get_child(int i);
-            void add_child(std::string child);
-            int get_height();
-            int get_size();
-            void each(void (*callback)(std::string));
-            void each(char* path, void (*callback)(std::string, char*));
+            Node* get_child(std::string prefix);
     };
 }
 

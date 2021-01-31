@@ -1,12 +1,14 @@
 #include<cstring>
 #include<cstdlib>
 #include<string>
+#include<sstream>
 
 #include "../../include/tree/node.hpp"
 
 namespace tree {
-    Node::Node(std::string prefix){
+    Node::Node(std::string prefix, int code){
         this->prefix = prefix;
+        this->code = code;
         this->parent = nullptr;
     }
 
@@ -14,21 +16,22 @@ namespace tree {
 
     }
 
+    int Node::get_code(){
+        return this->code;
+    }
+
     std::string Node::get_prefix(){
         return this->prefix;
     }
 
     std::string Node::get_full_prefix(){
-        throw "Not implemented";
-        return "";
-    }
-
-    Node* Node::get_parent(){
-        return this->parent;
-    }
-
-    void Node::set_parent(Node* parent){
-        this->parent = parent;
+        std::stringstream stream;
+        stream << this->prefix;
+        for(Node* p = this->parent; p != nullptr; p = p->parent){
+            stream << p->prefix;
+        }
+        std::string inverted_prefix = stream.str();
+        return std::string(inverted_prefix.rbegin(), inverted_prefix.rend());
     }
 
     std::vector<Node*> Node::get_children(){
@@ -39,26 +42,14 @@ namespace tree {
         return this->children.at(i);
     }
 
-    void Node::add_child(std::string child){
-        throw "Not implemented";
-    }
-
-    int Node::get_height(){
-        throw "Not implemented";
-        return -1;
-    }
-
-    int Node::get_size(){
-        throw "Not implemented";
-        return -1;
-    }
-
-    void Node::each(void (*callback)(std::string)){
-        throw "Not implemented";
-    }
-
-    void Node::each(char* path, void (*callback)(std::string, char*)){
-        throw "Not implemented";
+    Node* Node::get_child(std::string prefix){
+        std::vector<Node*>::iterator it;
+        for(it = this->children.begin(); it != this->children.end(); ++it){
+            if((*it)->prefix.compare(prefix) == 0){
+                return *it;
+            }
+        }
+        return nullptr;
     }
 
     void Node::clear(){
