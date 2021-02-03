@@ -34,7 +34,7 @@ int main(int argc, char const* argv[]){
         std::cout << "\bdone!\n";
     }
     else if(strncmp(argv[1], "-x", 3) == 0){
-        if(argc == 4){
+        if(argc < 4){
             output_file_name_stream << ".txt";
             output_file_name = output_file_name_stream.str();
         }

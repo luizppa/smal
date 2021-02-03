@@ -1,6 +1,7 @@
 #include<string>
 #include<sstream>
 #include<iostream>
+#include<queue>
 
 #include"../../include/tree/prefix-tree.hpp"
 
@@ -30,6 +31,26 @@ namespace tree {
     }
 
     Node* PrefixTree::find(int code){
+        std::queue<Node*> to_visit;
+        std::vector<Node*>::iterator it;
+        if(code == 0){
+            return this->root;
+        }
+        for(it = this->root->children.begin(); it != this->root->children.end(); ++it){
+            to_visit.push(*it);
+        }
+        while(!to_visit.empty()){
+            Node* p = to_visit.front();
+            to_visit.pop();
+            if(p->code == code){
+                return p;
+            }
+            else{
+                for(it = p->children.begin(); it != p->children.end(); ++it){
+                    to_visit.push(*it);
+                }
+            }
+        }
         return nullptr;
     }
 

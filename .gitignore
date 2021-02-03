@@ -1,5 +1,6 @@
 build/*
 !build/.gitkeep
 
-output/*.log
+output/*
+!output/.gitkeep
 **/*.z78

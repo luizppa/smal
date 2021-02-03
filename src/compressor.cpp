@@ -46,11 +46,33 @@ namespace smal{
     void Compressor::decompress(std::string input_path, std::string output_path){
         std::ifstream input_file(input_path);
         std::ofstream output_file(output_path);
+        tree::PrefixTree* prefix_tree = new tree::PrefixTree();
+
         if(!input_file.is_open()){
             throw "Unexistent input file";
         }
         if(!output_file.is_open()){
             throw "Can't open output file\n";
+        }
+
+        input_file.unsetf(std::ios_base::skipws);
+        std::string ds;
+        char dc;
+        while(std::getline(input_file, ds, '(')){
+            int code;
+            char c;
+            input_file >> code >> dc >> c;
+            if(code == 0){
+                output_file << c;
+                prefix_tree->add(prefix_tree->get_root(), std::string(1, c));
+            }
+            else{
+                tree::Node* prefix_node = prefix_tree->find(code);
+                if(prefix_node != nullptr){
+                    output_file << prefix_node->get_full_prefix() << c;
+                    prefix_tree->add(prefix_node, std::string(1, c));
+                }
+            }
         }
     }
 
