@@ -56,12 +56,10 @@ namespace smal{
         }
 
         input_file.unsetf(std::ios_base::skipws);
-        std::string ds;
         char dc;
-        while(std::getline(input_file, ds, '(')){
-            int code;
-            char c;
-            input_file >> code >> dc >> c;
+        int code;
+        char c;
+        while(input_file >> dc >> code >> dc >> c >> dc){
             if(code == 0){
                 output_file << c;
                 prefix_tree->add(prefix_tree->get_root(), std::string(1, c));
@@ -69,7 +67,12 @@ namespace smal{
             else{
                 tree::Node* prefix_node = prefix_tree->find(code);
                 if(prefix_node != nullptr){
-                    output_file << prefix_node->get_full_prefix() << c;
+                    if(c != (char)4){
+                        output_file << prefix_node->get_full_prefix() << c;
+                    }
+                    else{
+                        output_file << prefix_node->get_full_prefix();
+                    }
                     prefix_tree->add(prefix_node, std::string(1, c));
                 }
             }
