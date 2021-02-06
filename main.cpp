@@ -43,7 +43,7 @@ int main(int argc, char const* argv[]){
         std::cout << "\bdone!\n";
     }
     else{
-        std::cout << "Unkown option " << argv[1] << "\n";
+        std::cout << "Unknown option " << argv[1] << "\n";
         exit(1);
     }
 
