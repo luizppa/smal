@@ -3,6 +3,7 @@
 #include<string>
 #include<iostream>
 #include<cstdlib>
+#include<map>
 
 #include"../include/compressor.hpp"
 #include"../include/tree/prefix-tree.hpp"
@@ -53,6 +54,7 @@ namespace smal{
         std::ifstream input_file(input_path);
         std::ofstream output_file(output_path);
         tree::PrefixTree* prefix_tree = new tree::PrefixTree();
+        std::map<int, tree::Node*> dictionary;
 
         if(!input_file.is_open()){
             throw "Unexistent input file";
@@ -64,13 +66,15 @@ namespace smal{
         input_file.unsetf(std::ios_base::skipws);
         int* code = (int*) malloc(sizeof(int));
         char* c = (char*) malloc(sizeof(char));
+        tree::Node* new_node = nullptr;
         while(input_file.read((char *)code, 4) && input_file.read(c, 1)){
             if(*code == 0){
                 output_file << *c;
-                prefix_tree->add(prefix_tree->get_root(), std::string(1, *c));
+                new_node = prefix_tree->add(prefix_tree->get_root(), std::string(1, *c));
+                dictionary[new_node->get_code()] = new_node;
             }
             else{
-                tree::Node* prefix_node = prefix_tree->find(*code);
+                tree::Node* prefix_node = dictionary[*code];
                 if(prefix_node != nullptr){
                     if(*c != (char)4){
                         output_file << prefix_node->get_full_prefix() << *c;
@@ -78,7 +82,8 @@ namespace smal{
                     else{
                         output_file << prefix_node->get_full_prefix();
                     }
-                    prefix_tree->add(prefix_node, std::string(1, *c));
+                    new_node = prefix_tree->add(prefix_node, std::string(1, *c));
+                    dictionary[new_node->get_code()] = new_node;
                 }
             }
         }

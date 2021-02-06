@@ -23,11 +23,12 @@ namespace tree {
         return this->size;
     }
 
-    void PrefixTree::add(Node* node, std::string prefix){
+    Node* PrefixTree::add(Node* node, std::string prefix){
         Node* new_node = new Node(prefix, this->size);
         node->children.push_back(new_node);
         new_node->parent = node;
         this->size++;
+        return new_node;
     }
 
     Node* PrefixTree::find(int code){

@@ -19,7 +19,7 @@ namespace tree{
             int get_size(); // O(1)
             Node* get_root(); // O(1)
             Node* find(int code);
-            void add(Node* node, std::string object);
+            Node* add(Node* node, std::string object);
             void clear();
     };
 }
