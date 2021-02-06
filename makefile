@@ -27,4 +27,5 @@ run:
 	$(TARGET_PATH)
 
 mem:
-	valgrind --leak-check=full --show-leak-kinds=all --log-file="./output/mem.log" $(TARGET_PATH)
+	valgrind --leak-check=full --show-leak-kinds=all --log-file="./output/compress-mem.log" $(TARGET_PATH) -c ./input/04.in ./output/04.z78
+	valgrind --leak-check=full --show-leak-kinds=all --log-file="./output/decompress-mem.log" $(TARGET_PATH) -x ./output/04.z78 ./output/04-decompressed.in

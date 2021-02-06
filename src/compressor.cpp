@@ -48,6 +48,7 @@ namespace smal{
 
         input_file.close();
         output_file.close();
+        delete prefix_tree;
     }
 
     void Compressor::decompress(std::string input_path, std::string output_path){
@@ -87,6 +88,9 @@ namespace smal{
                 }
             }
         }
+        free(code);
+        free(c);
+        delete prefix_tree;
     }
 
 

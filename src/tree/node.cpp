@@ -13,7 +13,7 @@ namespace tree {
     }
 
     Node::~Node(){
-
+        this->clear();
     }
 
     int Node::get_code(){
@@ -53,6 +53,10 @@ namespace tree {
     }
 
     void Node::clear(){
-        throw "Not implemented";
+        std::vector<Node*>::iterator it;
+        for(it = this->children.begin(); it != this->children.end(); ++it){
+            Node* child = *it;
+            delete child;
+        }
     }
 }

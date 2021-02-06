@@ -12,7 +12,7 @@ namespace tree {
     }
 
     PrefixTree::~PrefixTree(){
-
+        this->clear();
     }
 
     Node* PrefixTree::get_root(){
@@ -56,6 +56,6 @@ namespace tree {
     }
 
     void PrefixTree::clear(){
-        throw "Not implemented";
+        delete this->root;
     }
 }
