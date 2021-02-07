@@ -31,8 +31,8 @@ namespace smal{
             tree::Node* prefix_child = prefix_node->get_child(std::string(1, c));
             code = prefix_node->get_code();
             if(prefix_child == nullptr){
-                output_file.write((char*)(&code), 4);
-                output_file.write(&c, 1);
+                output_file.write((char*)(&code), sizeof(int));
+                output_file.write(&c, sizeof(char));
                 prefix_tree->add(prefix_node, std::string(1, c));
                 prefix_node = prefix_tree->get_root();
             }
