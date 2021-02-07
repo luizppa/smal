@@ -12,10 +12,10 @@ Compressing files:
 
 ```smal -c input_file [output_file]```
 
-```input file``` is the file to be compressed, ```output_file``` is an optional output path for the compressed file, if none iss provided, the output file name will be the same as the input file with .z78 extension.
+```input file``` is the file to be compressed, ```output_file``` is an optional output path for the compressed file, if none is provided, the output file name will be the same as the input file with .z78 extension.
 
 Decompressing files:
 
 ```smal -x input_file [output_file]```
 
-```input file``` is the file to be decompressed, ```output_file``` is an optional output path for the decompressed file, if none iss provided, the output file name will be the same as the input file with .txt extension.
+```input file``` is the file to be decompressed, ```output_file``` is an optional output path for the decompressed file, if none is provided, the output file name will be the same as the input file with .txt extension.
