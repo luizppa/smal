@@ -42,8 +42,8 @@ namespace smal{
         }
         code = prefix_node->get_code();
         if(prefix_node != prefix_tree->get_root()){
-            output_file.write((char*)(&code), 4);
-            output_file.write((char*)(&eof), 1);
+            output_file.write((char*)(&code), sizeof(int));
+            output_file.write((char*)(&eof), sizeof(char));
         }
 
         input_file.close();
@@ -64,11 +64,13 @@ namespace smal{
             throw "Can't open output file\n";
         }
 
-        input_file.unsetf(std::ios_base::skipws);
         int* code = (int*) malloc(sizeof(int));
         char* c = (char*) malloc(sizeof(char));
+        char eof = (char)4
         tree::Node* new_node = nullptr;
-        while(input_file.read((char *)code, 4) && input_file.read(c, 1)){
+
+        input_file.unsetf(std::ios_base::skipws);
+        while(input_file.read((char *)code, sizeof(int)) && input_file.read(c, sizeof(char))){
             if(*code == 0){
                 output_file << *c;
                 new_node = prefix_tree->add(prefix_tree->get_root(), std::string(1, *c));
@@ -77,7 +79,7 @@ namespace smal{
             else{
                 tree::Node* prefix_node = dictionary[*code];
                 if(prefix_node != nullptr){
-                    if(*c != (char)4){
+                    if(*c != eof){
                         output_file << prefix_node->get_full_prefix() << *c;
                     }
                     else{
