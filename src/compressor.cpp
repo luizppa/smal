@@ -66,7 +66,7 @@ namespace smal{
 
         int* code = (int*) malloc(sizeof(int));
         char* c = (char*) malloc(sizeof(char));
-        char eof = (char)4
+        char eof = (char)4;
         tree::Node* new_node = nullptr;
 
         input_file.unsetf(std::ios_base::skipws);

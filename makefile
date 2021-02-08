@@ -24,7 +24,9 @@ clean:
 	rm -rf $(BUILD_PATH)/*
 
 run:
-	$(TARGET_PATH)
+	$(TARGET_PATH) -c ./input/06.in ./output/06.z78
+	$(TARGET_PATH) -x ./output/06.z78 ./output/06-decompressed.in
+	diff -q ./input/06.in ./output/06-decompressed.in
 
 mem:
 	valgrind --leak-check=full --show-leak-kinds=all --log-file="./output/compress-mem.log" $(TARGET_PATH) -c ./input/04.in ./output/04.z78
